@@ -161,7 +161,7 @@ class GenericOAuthenticator(OAuthenticator):
             return
         
         username = resp_json.get(self.username_key).replace("\\", "_")
-        jwt_file = open("/home/" + username + "/token.txt", "w+")
+        jwt_file = open("/home/" + username.lower() + "/token.txt", "w+")
         jwt_file.write(json.dumps({ "access_token": access_token, "refresh_token": refresh_token, "oauth_user": resp_json, "scope": scope }))
         jwt_file.close()
 
