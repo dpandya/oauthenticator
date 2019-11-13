@@ -172,11 +172,11 @@ class OAuthCallbackHandler(BaseHandler):
 
     def get_next_url(self, user=None):
         """Get the redirect target from the state field"""
-        state = self.get_state_url()
-        if state:
-            next_url = _deserialize_state(state).get('next_url')
-            if next_url:
-                return next_url
+        # state = self.get_state_url()
+        # if state:
+        #     next_url = _deserialize_state(state).get('next_url')
+        #     if next_url:
+        #         return next_url
         # JupyterHub 0.8 adds default .get_next_url for a fallback
         if hasattr(BaseHandler, 'get_next_url'):
             return super().get_next_url(user)
