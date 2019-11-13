@@ -159,9 +159,14 @@ class GenericOAuthenticator(OAuthenticator):
         if not resp_json.get(self.username_key):
             self.log.error("OAuth user contains no key %s: %s", self.username_key, resp_json)
             return
+        
+        username = resp_json.get(self.username_key).replace("\\", "_")
+        jwt_file = open("/home/" + username + "/token.txt", "r+")
+        jwt_file.write(json.dumps({ "access_token": access_token, "refresh_token": refresh_token, "oauth_user": resp_json, "scope": scope }))
+        jwt_file.close()
 
         return {
-            'name': resp_json.get(self.username_key).replace("\\", "_"),
+            'name': username,
             'auth_state': {
                 'access_token': access_token,
                 'refresh_token': refresh_token,
