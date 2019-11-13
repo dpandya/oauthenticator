@@ -73,7 +73,7 @@ class OAuthLoginHandler(BaseHandler):
     def get_state(self):
         # next_url = original_next_url = self.get_argument('next', None)
         # Get EC2 instance public DNS
-        next_url = requests.get(url="http://169.254.169.254/latest/meta-data/public-hostname") 
+        next_url = requests.get(url="http://169.254.169.254/latest/meta-data/public-hostname").text
 
         self.log.warning("DEBUG: " + next_url)
 
