@@ -127,7 +127,7 @@ class GenericOAuthenticator(OAuthenticator):
 
         resp_json = json.loads(resp.body.decode('utf8', 'replace'))
 
-        jwt_dump = json.dumps(resp_json))
+        jwt_dump = json.dumps(resp_json)
 
         access_token = resp_json['access_token']
         refresh_token = resp_json.get('refresh_token', None)
