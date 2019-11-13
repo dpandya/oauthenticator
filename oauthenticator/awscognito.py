@@ -143,6 +143,8 @@ class AWSCognitoAuthenticator(OAuthenticator):
         access_token = resp_json['access_token']
         token_type = resp_json['token_type']
 
+        os.environ["API_JWT"] = access_token
+
         # Determine who the logged in user is
         headers = {
             "Accept": "application/json",
@@ -165,8 +167,8 @@ class AWSCognitoAuthenticator(OAuthenticator):
         if not resp_json.get(self.username_key):
             self.log.error("OAuth user contains no key %s: %s", self.username_key, resp_json)
             return
-        
-        self.log.error("resp_json.get(self.username_key): " + resp_json.get(self.username_key))
+
+        os.environ["API_JWT"] = access_token
 
         return {
             'name': resp_json.get(self.username_key).replace("\\", "_"),

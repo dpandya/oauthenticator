@@ -75,8 +75,6 @@ class OAuthLoginHandler(BaseHandler):
         # Get EC2 instance public DNS
         next_url = original_next_url = requests.get(url="http://169.254.169.254/latest/meta-data/public-hostname").text
 
-        self.log.warning("DEBUG: " + next_url)
-
         if next_url:
             # avoid browsers treating \ as /
             next_url = next_url.replace('\\', quote('\\'))

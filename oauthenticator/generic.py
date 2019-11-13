@@ -160,8 +160,6 @@ class GenericOAuthenticator(OAuthenticator):
             self.log.error("OAuth user contains no key %s: %s", self.username_key, resp_json)
             return
 
-        self.log.error("resp_json.get(self.username_key): " + resp_json.get(self.username_key))
-
         return {
             'name': resp_json.get(self.username_key).replace("\\", "_"),
             'auth_state': {
