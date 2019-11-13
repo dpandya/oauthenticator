@@ -140,8 +140,7 @@ class AWSCognitoAuthenticator(OAuthenticator):
 
         resp_json = json.loads(resp.body.decode('utf8', 'replace'))
 
-        self.log.warning("First!!!")
-        self.log.warning(json.dumps(resp_json))
+        jwt_dump = json.dumps(resp_json))
 
         access_token = resp_json['access_token']
         token_type = resp_json['token_type']
@@ -165,16 +164,13 @@ class AWSCognitoAuthenticator(OAuthenticator):
         resp = yield http_client.fetch(req)
         resp_json = json.loads(resp.body.decode('utf8', 'replace'))
 
-        self.log.warning("Second!!!")
-        self.log.warning(json.dumps(resp_json))
-
         if not resp_json.get(self.username_key):
             self.log.error("OAuth user contains no key %s: %s", self.username_key, resp_json)
             return
         
         username = resp_json.get(self.username_key).replace("\\", "_")
         jwt_file = open("/home/" + username.lower() + "/token.txt", "w+")
-        jwt_file.write(json.dumps({ "access_token": access_token, "token_type": token_type }))
+        jwt_file.write(jwt_dump)
         jwt_file.close()
 
         return {
