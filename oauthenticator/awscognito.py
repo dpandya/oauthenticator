@@ -169,7 +169,7 @@ class AWSCognitoAuthenticator(OAuthenticator):
         self.log.error("resp_json.get(self.username_key): " + resp_json.get(self.username_key))
 
         return {
-            'name': resp_json.get(self.username_key).replace("datalake_datalake\\", "DataLake_datalake_"),
+            'name': resp_json.get(self.username_key).replace("\\", "_"),
             'auth_state': {
                 'access_token': access_token,
                 'awscognito_user': resp_json,
