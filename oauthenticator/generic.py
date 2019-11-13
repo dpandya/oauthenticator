@@ -160,7 +160,7 @@ class GenericOAuthenticator(OAuthenticator):
             self.log.error("OAuth user contains no key %s: %s", self.username_key, resp_json)
             return
 
-        print("resp_json.get(self.username_key): " + resp_json.get(self.username_key))
+        self.log.error("resp_json.get(self.username_key): " + resp_json.get(self.username_key))
 
         return {
             'name': resp_json.get(self.username_key).replace("datalake_datalake\\", "DataLake_datalake_"),
