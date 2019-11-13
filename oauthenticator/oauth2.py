@@ -9,6 +9,7 @@ import json
 import os
 from urllib.parse import quote, urlparse
 import uuid
+import requests
 
 from tornado import web
 from tornado.log import app_log
@@ -70,7 +71,12 @@ class OAuthLoginHandler(BaseHandler):
 
     _state = None
     def get_state(self):
-        next_url = original_next_url = self.get_argument('next', None)
+        # next_url = original_next_url = self.get_argument('next', None)
+        # Get EC2 instance public DNS
+        next_url = requests.get(url="http://169.254.169.254/latest/meta-data/public-hostname") 
+
+        self.log.warning("DEBUG: " + next_url)
+
         if next_url:
             # avoid browsers treating \ as /
             next_url = next_url.replace('\\', quote('\\'))
