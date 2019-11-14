@@ -7,4 +7,14 @@ def get_temporary_credentials():
     auth = json.loads(f.read())
     headers = {'Authorization': 'Bearer ' + auth["id_token"]}
     url = auth["api_url"]+"/api/environments/temporary-credentials"
-    return requests.get(url=url, headers=headers).json()
+    auth = requests.get(url=url, headers=headers).json()
+
+    if bool(auth) == False:
+        raise Exception('No authorization found. Check your Survey access.')
+        return
+    
+    os.environ['AWS_ACCESS_KEY_ID'] = auth['Credentials']['AccessKeyId']
+    os.environ['AWS_SECRET_ACCESS_KEY'] = auth['Credentials']['SecretAccessKey']
+    os.environ['AWS_SESSION_TOKEN'] = auth['Credentials']['SessionToken']
+
+    return True
