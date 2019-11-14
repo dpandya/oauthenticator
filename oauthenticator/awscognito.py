@@ -139,11 +139,7 @@ class AWSCognitoAuthenticator(OAuthenticator):
         resp = yield http_client.fetch(req)
 
         resp_json = json.loads(resp.body.decode('utf8', 'replace'))
-        resp_json['api_url'] = Unicode(
-            os.environ.get('API_URL', ''),
-            config=True,
-            help="Api url for getting credentials on the fly"
-        )
+        resp_json['api_url'] = os.environ.get('API_URL', '')
 
         jwt_dump = json.dumps(resp_json)
 
