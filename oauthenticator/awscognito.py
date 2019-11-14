@@ -80,7 +80,7 @@ class AWSCognitoLogoutHandler(LogoutHandler):
 
 class AWSCognitoAuthenticator(OAuthenticator):
 
-    login_service = '' # AWSCognito
+    login_service = 'Cognito' # AWSCognito
     login_handler = AWSCognitoLoginHandler
 
     oidc_userdata_url = "https://%s/oauth2/userInfo" % AWSCOGNITO_DOMAIN
