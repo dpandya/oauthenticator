@@ -2,12 +2,12 @@ import requests
 import json
 import os
 
-def get_temporary_credentials():
+def get_temporary_credentials(projectId):
     f = open(os.environ["HOME"] + "/auth", "r")
     auth = json.loads(f.read())
     headers = {'Authorization': 'Bearer ' + auth["id_token"]}
-    url = auth["api_url"]+"/api/environments/temporary-credentials"
-    auth = requests.get(url=url, headers=headers).json()
+    url = auth["api_url"]+"/api/projects/"+projectId+"/temporary-credentials"
+    auth = requests.post(url=url, headers=headers, data={}).json()
 
     if bool(auth) == False:
         raise Exception('No authorization found. Check your Survey access.')
