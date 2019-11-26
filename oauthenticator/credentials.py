@@ -7,7 +7,7 @@ def get_temporary_credentials():
     auth = json.loads(f.read())
     headers = {'Authorization': 'Bearer ' + auth["id_token"]}
     url = auth["api_url"]+"/api/environments/temporary-credentials"
-    auth = requests.post(url=url, headers=headers, data={}).json()
+    auth = requests.get(url=url, headers=headers, data={}).json()
 
     if bool(auth) == False:
         raise Exception('No authorization found. Check your Survey access.')
