@@ -2,11 +2,11 @@ import requests
 import json
 import os
 
-def get_temporary_credentials(projectId):
+def get_temporary_credentials():
     f = open(os.environ["HOME"] + "/auth", "r")
     auth = json.loads(f.read())
     headers = {'Authorization': 'Bearer ' + auth["id_token"]}
-    url = auth["api_url"]+"/api/projects/"+projectId+"/temporary-credentials"
+    url = auth["api_url"]+"/api/environments/temporary-credentials"
     auth = requests.post(url=url, headers=headers, data={}).json()
 
     if bool(auth) == False:

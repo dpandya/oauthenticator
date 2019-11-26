@@ -64,3 +64,5 @@ jupyterhub_cookie_secret
 
 .vscode/
 .idea/
+
+oauthenticator.iml
